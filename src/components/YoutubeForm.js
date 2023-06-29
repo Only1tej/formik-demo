@@ -1,5 +1,6 @@
 import React from "react";
 import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const initialValues = {
   name: "",
@@ -41,43 +42,53 @@ function YoutubeForm() {
     validate: validate,
   });
   // console.log("Form values", formik.values);
-  console.log("Form errors", formik.errors);
+  // console.log("Form errors", formik.errors);
+  console.log("Visited fields", formik.touched);
 
   return (
     <div>
       <form onSubmit={formik.handleSubmit}>
-        <div>
+        <div className="form-control">
           <label htmlFor="name">Name</label>
           <input
             type="text"
             name="name"
             id="name"
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             value={formik.values.name}
           />
-          {formik.errors.name ? <div>{formik.errors.name}</div> : null}
+          {formik.touched.name && formik.errors.name ? (
+            <div className="error">{formik.errors.name}</div>
+          ) : null}
         </div>
-        <div>
+        <div className="form-control">
           <label htmlFor="email">E-mail</label>
           <input
             type="email"
             name="email"
             id="email"
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             value={formik.values.email}
           />
-          {formik.errors.email ? <div>{formik.errors.email}</div> : null}
+          {formik.touched.email && formik.errors.email ? (
+            <div className="error">{formik.errors.email}</div>
+          ) : null}
         </div>
-        <div>
+        <div className="form-control">
           <label htmlFor="channel">Channel</label>
           <input
             type="text"
             name="channel"
             id="channel"
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             value={formik.values.channel}
           />
-          {formik.errors.channel ? <div>{formik.errors.channel}</div> : null}
+          {formik.touched.channel && formik.errors.channel ? (
+            <div className="error">{formik.errors.channel}</div>
+          ) : null}
         </div>
         <button type="submit">Submit</button>
       </form>

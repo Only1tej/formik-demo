@@ -25,8 +25,10 @@ const initialValues = {
   phNumbers: [""],
 };
 
-const onSubmit = (values) => {
+const onSubmit = (values, onSubmitProps) => {
   console.log("Form data", values);
+  console.log("Submit props", onSubmitProps);
+  onSubmitProps.setSubmitting(false);
 };
 
 const validationSchema = Yup.object({
@@ -54,7 +56,7 @@ function YoutubeForm() {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
-      validateOnMount
+      // validateOnMount
     >
       {(formik) => {
         console.log("Formik props", formik);
@@ -219,7 +221,19 @@ function YoutubeForm() {
             >
               Visit fields
             </button>
-            <button type="submit" disabled={!formik.isValid}>
+            {/* For validity of the form state */}
+            {/* <button type="submit" disabled={!(formik.dirty && formik.isValid)}>
+              Submit
+            </button> */}
+            {/* Form submission in progress */}
+            {/* <button type="submit" disabled={formik.isSubmitting}>
+              Submit
+            </button> */}
+            {/* Combining the two, to check whether the form state is valid or not and check whether the form is currently being submitted or not*/}
+            <button
+              type="submit"
+              disabled={!formik.isValid || formik.isSubmitting}
+            >
               Submit
             </button>
           </Form>

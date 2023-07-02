@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Formik,
   Form,
@@ -23,6 +23,20 @@ const initialValues = {
   },
   phoneNumbers: ["", ""],
   phNumbers: [""],
+};
+const savedValues = {
+  name: "Tej",
+  email: "tej@gmail.com",
+  channel: "Codevolution",
+  comments: "Welcome to Formik",
+  address: "No 22b Baker Street",
+  social: {
+    facebook: "",
+    twitter: "Only1tej",
+    instagram: "",
+  },
+  phoneNumbers: ["", " "],
+  phNumbers: ["08137966633"],
 };
 
 const onSubmit = (values, onSubmitProps) => {
@@ -50,12 +64,13 @@ function YoutubeForm() {
   // console.log("Form values", formik.values);
   // console.log("Form errors", formik.errors);
   // console.log("Visited fields", formik.touched);
-
+  const [formValues, setFormValues] = useState(null);
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={formValues || initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
+      enableReinitialize
       // validateOnMount
     >
       {(formik) => {
@@ -193,7 +208,7 @@ function YoutubeForm() {
                 }}
               </FieldArray>
             </div>
-            <button
+            {/* <button
               type="button"
               onClick={() => formik.validateField("comments")}
             >
@@ -220,7 +235,7 @@ function YoutubeForm() {
               }
             >
               Visit fields
-            </button>
+            </button> */}
             {/* For validity of the form state */}
             {/* <button type="submit" disabled={!(formik.dirty && formik.isValid)}>
               Submit
@@ -230,6 +245,9 @@ function YoutubeForm() {
               Submit
             </button> */}
             {/* Combining the two, to check whether the form state is valid or not and check whether the form is currently being submitted or not*/}
+            <button type="button" onClick={() => setFormValues(savedValues)}>
+              Load saved data
+            </button>
             <button
               type="submit"
               disabled={!formik.isValid || formik.isSubmitting}

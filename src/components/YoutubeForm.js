@@ -112,7 +112,7 @@ function YoutubeForm() {
               />
               <ErrorMessage name="comments" component={TextError} />
             </div>
-            {/* // (Implementation of the field component iwth the render props pattern)When you want to use custom component in your form, you want to hook it to formik (To hook the input with formik, we spread the field props)(meta props is used to render the error message), this pattern is useful */}
+            {/* // (Implementation of the field component with the render props pattern)When you want to use custom component in your form, you want to hook it to formik (To hook the input with formik, we spread the field props)(meta props is used to render the error message), this pattern is useful */}
             <div className="form-control">
               <label htmlFor="address">Address</label>
               <FastField name="address">
